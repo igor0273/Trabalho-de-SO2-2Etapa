@@ -131,13 +131,14 @@ public class Server extends Thread {
         }
     }
 
-    public void addAgencia(PrintStream endPoint, BufferedReader startingPoint) throws IOException {
+    public void addAgencia(PrintStream endPoint, BufferedReader startingPoint) throws IOException, InterruptedException {
         try {
             Agencia x = new Agencia();
             endPoint.println("Informe o numero da agencia");
             x.setNumero(startingPoint.readLine().trim());
             endPoint.println("Informe a Descrção do agencia");
             x.setDescricao(startingPoint.readLine().trim());
+            this.sleep(500);
             if (x != null) {
                 this.agenciasList.add(x);
             }
@@ -152,7 +153,7 @@ public class Server extends Thread {
         try {
             endPoint.println("Informe o numero da agencia");
             String nAgencia = startingPoint.readLine().trim();
-
+            this.sleep(500);
             agenciasList.forEach(x -> {
                 if (x.getNumero() == nAgencia) {
                     agenciasList.remove(x);
@@ -163,12 +164,12 @@ public class Server extends Thread {
         }
     }
 
-    public void deleteConta(PrintStream endPoint, BufferedReader startingPoint) throws IOException {
+    public void deleteConta(PrintStream endPoint, BufferedReader startingPoint) throws IOException, InterruptedException {
         try {
 
             endPoint.println("Informe o numero da conta");
             String nConta = startingPoint.readLine().trim();
-
+            this.sleep(500);
             contasList.forEach(x -> {
                 if (x.getNumeroConta() == nConta) {
                     contasList.remove(x);
@@ -179,7 +180,7 @@ public class Server extends Thread {
         }
     }
 
-    public void addConta(PrintStream endPoint, BufferedReader startingPoint) throws IOException {
+    public void addConta(PrintStream endPoint, BufferedReader startingPoint) throws IOException, InterruptedException {
         try {
             Conta c = new Conta();
             endPoint.println("Informe o numero da conta");
@@ -200,6 +201,7 @@ public class Server extends Thread {
                 }
             });
 
+            this.sleep(500);
             clientesList.forEach(x -> {
 
                 if (x.getName().equals(c.getNomeCliente())) {
@@ -215,12 +217,12 @@ public class Server extends Thread {
 
     }
 
-    public void depositar(PrintStream endPoint, BufferedReader startingPoint) throws IOException {
+    public void depositar(PrintStream endPoint, BufferedReader startingPoint) throws IOException, InterruptedException {
         endPoint.println("Informe o numero da conta");
         String nConta = startingPoint.readLine().trim();
         endPoint.println("Informe quando deseja depositar");
         int valDepositar = Integer.parseInt(startingPoint.readLine());
-
+        this.sleep(500);
         this.cliente.getContas().forEach(x -> {
             if (x.getNumeroConta() == nConta) {
                 x.setSaldo(x.getSaldo() + valDepositar);
