@@ -25,6 +25,7 @@ public class Server extends Thread {
     private static List<Cliente> clientesList;
     private static List<Agencia> agenciasList;
     private static List<Conta> contasList;
+    private static List<Cliente> clienteAdminList;
     private Cliente cliente;
     private Socket connection;
     private Agencia agencia;
@@ -69,7 +70,7 @@ public class Server extends Thread {
 
                             break;
                         case "3": // Inicia o jogo
-
+                            extrado(endPoint, startingPoint);
                             break;
 
                         case "4":
@@ -107,8 +108,19 @@ public class Server extends Thread {
                         case "4":
                             deleteConta(endPoint, startingPoint);
                             break;
+
                         case "5":
-                            this.interrupt();
+                            listaAgencia(endPoint);
+
+                            break;
+
+                        case "6":
+                            listaContas(endPoint);
+                            break;
+                        case "7":
+                            this.interrupted();
+                            this.stop();
+
                             break;
                         default: // Opção inválida
                             endPoint.println("Erro: Opção inválida!");
@@ -154,11 +166,11 @@ public class Server extends Thread {
             endPoint.println("Informe o numero da agencia");
             String nAgencia = startingPoint.readLine().trim();
             this.sleep(500);
-            agenciasList.forEach(x -> {
-                if (x.getNumero() == nAgencia) {
-                    agenciasList.remove(x);
-                }
-            });
+            if (agenciasList.removeIf(x -> x.getNumero().equals(nAgencia))) {
+                endPoint.println("Agencia de Numero: " + nAgencia + "removida com sucesso");
+            } else {
+                endPoint.println("Erro ao remover a agencia de numero: " + nAgencia);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -170,11 +182,19 @@ public class Server extends Thread {
             endPoint.println("Informe o numero da conta");
             String nConta = startingPoint.readLine().trim();
             this.sleep(500);
-            contasList.forEach(x -> {
-                if (x.getNumeroConta() == nConta) {
-                    contasList.remove(x);
-                }
-            });
+            if (contasList.removeIf(x -> x.getNumeroConta().equals(nConta))) {
+                endPoint.println("Conta de Numero: " + nConta + " Removida com sucesso\n\n\n");
+                clientesList.forEach(cli -> {
+                    if (!cli.getAdmin()) {
+                        if (cli.getContas().removeIf(x -> x.getNumeroConta().equals(nConta))) {
+                            cli.getEndPoint().println("Sua Conta de numero: " + nConta + " foi removida \n\n\n\n\n");
+                        }
+                    }
+                });
+            } else {
+                endPoint.println("Erro ao remover a conta de numero: " + nConta + "\n\n\n\n\n");
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -196,39 +216,88 @@ public class Server extends Thread {
             endPoint.println("Informe o numero da agencia");
             String aux = startingPoint.readLine();
             agenciasList.forEach(ag -> {
-                if (ag.getNumero() == aux) {
+                if (ag.getNumero().equals(aux)) {
                     c.setAgencia(ag);
                 }
             });
 
-            this.sleep(500);
-            clientesList.forEach(x -> {
-
+            Server.sleep(500);
+            boolean contaCriada = false;
+            clientesList.forEach((x) -> {
                 if (x.getName().equals(c.getNomeCliente())) {
-                    x.getEndPoint().println("Conta de numero " + c.getNumeroConta() + "Vinculada ao cliente " + x.getName());
-                    x.getContas().add(c);
-
+                    if (x.getContas().size() == 3) {
+                        endPoint.println("O Cliente " + x.getName() + " ja possui 3 contas vinculadas a ele por isso não é possivel criar essa conta\n\n\n\n");
+                    } else {
+                        x.getEndPoint().println("Conta de numero " + c.getNumeroConta() + "Vinculada ao cliente " + x.getName());
+                        x.getContas().add(c);
+                        contasList.add(c);
+                    }
                 }
             });
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    public void extrado(PrintStream endPoint, BufferedReader startingPoint) throws IOException{
+        endPoint.println("Informe o numero da conta");
+        String nConta = startingPoint.readLine().trim();
+       
+        this.cliente.getContas().forEach(x->{
+            if(x.getNumeroConta().equals(nConta)){
+                 endPoint.println("Numero da Conta: " + x.getNumeroConta() + "\nNumero da Agencia: " + x.getAgencia().getNumero()
+                        + "\n Nome do Cliente: " + x.getNomeCliente() + "\n Saldo: "+x.getSaldo()+"\n-------------------");
+        
+            }
+               
+        });
+        
+    }
+
+    public void listaAgencia(PrintStream endPoint) {
+
+        if (agenciasList.size() == 0) {
+            endPoint.println("Nenhuma Agencia Cadastrada");
+        } else {
+            agenciasList.forEach(x -> {
+                endPoint.println("Numero Agencia: " + x.getNumero() + "\nDescrição: " + x.getDescricao() + "\n---------------");
+            });
+        }
+    }
+
+    public void listaContas(PrintStream endPoint) {
+        if (contasList.size() == 0) {
+            endPoint.println("Nenhuma Conta Bancaria Cadastrada");
+        } else {
+            contasList.forEach(x -> {
+                endPoint.println("Numero da Conta: " + x.getNumeroConta() + "\nNumero da Agencia: " + x.getAgencia().getNumero()
+                        + "\n Nome do Cliente: " + x.getNomeCliente() + "\n-------------------");
+            });
+        }
 
     }
 
     public void depositar(PrintStream endPoint, BufferedReader startingPoint) throws IOException, InterruptedException {
-        endPoint.println("Informe o numero da conta");
-        String nConta = startingPoint.readLine().trim();
-        endPoint.println("Informe quando deseja depositar");
-        int valDepositar = Integer.parseInt(startingPoint.readLine());
-        this.sleep(500);
-        this.cliente.getContas().forEach(x -> {
-            if (x.getNumeroConta() == nConta) {
-                x.setSaldo(x.getSaldo() + valDepositar);
-                endPoint.println("Depositado o valor: " + valDepositar + " na conta de numero: " + nConta);
+        if (this.cliente.getContas().size() == 0) {
+            endPoint.println("Voce nao possui contas para realizar o deposito aguarde o admin vincular uma conta\n\n\n");
+        } else {
+            endPoint.println("Informe o numero da conta");
+            String nConta = startingPoint.readLine().trim();
+            endPoint.println("Informe quando deseja depositar");
+            int valDepositar = Integer.parseInt(startingPoint.readLine().trim());
+            this.sleep(500);
+             this.cliente.getContas().forEach(x->{
+            if(x.getNumeroConta().equals(nConta)){
+                int aux = x.getSaldo() + valDepositar;
+                x.setSaldo(aux);
+                 endPoint.println("Depositado valor de: "+valDepositar+" na conte de numero: "+x.getNumeroConta()+"\n\n\n\n");
+        
             }
+               
         });
+        }
+
     }
 
     // Função Main
@@ -239,6 +308,7 @@ public class Server extends Thread {
         clientesList = Collections.synchronizedList(new ArrayList<>());
         agenciasList = Collections.synchronizedList(new ArrayList<>());
         contasList = Collections.synchronizedList(new ArrayList<>());
+        clienteAdminList = Collections.synchronizedList(new ArrayList<>());
         end = false;
         start = false;
         i = 0;
@@ -255,6 +325,7 @@ public class Server extends Thread {
                 // Novo player do client
                 Cliente player = new Cliente();
                 if (!adminLogado) {
+
                     player.setAdmin(true);
                     adminLogado = true;
                 }
