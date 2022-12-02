@@ -315,7 +315,7 @@ public class Server extends Thread {
             endPoint.println("Informe o numero da sua conta\n=>");
             String nConta = startingPoint.readLine().trim();
 
-            endPoint.print("\n\nInforme a quantia que deseja sacar=>");
+            endPoint.println("\n\nInforme a quantia que deseja sacar=>");
             int nSacar = Integer.parseInt(startingPoint.readLine().trim());
             boolean sacou = false;
             for (Conta c : this.cliente.getContas()) {
