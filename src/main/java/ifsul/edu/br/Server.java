@@ -390,6 +390,7 @@ public class Server extends Thread {
                 if (c.getNumeroConta().equals(nConta)) {
                     int aux = c.getSaldo() + valDepositar;
                     c.setSaldo(aux);
+                    depositou = true;
 
                 }
             }
