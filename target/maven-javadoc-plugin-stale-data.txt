@@ -1,0 +1,53 @@
+@options
+@packages
+@argfile
+-encoding
+'UTF-8'
+-protected
+-source
+'11'
+-sourcepath
+'C:/Users/igor_/Documents/NetBeansProjects/TrabalhoSO2_2Etapa/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2022. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/igor_/Documents/NetBeansProjects/TrabalhoSO2_2Etapa/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'TrabalhoSO2_2Etapa 1.0-SNAPSHOT API'
+-linkoffline
+'https://docs.oracle.com/en/java/javase/11/docs/api' 'C:/Users/igor_/Documents/NetBeansProjects/TrabalhoSO2_2Etapa/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'TrabalhoSO2_2Etapa 1.0-SNAPSHOT API'
+ifsul.edu.br
+'C:/Users/igor_/Documents/NetBeansProjects/TrabalhoSO2_2Etapa/src/main/java/ifsul/edu/br/Agencia.java'
+'C:/Users/igor_/Documents/NetBeansProjects/TrabalhoSO2_2Etapa/src/main/java/ifsul/edu/br/Cliente.java'
+'C:/Users/igor_/Documents/NetBeansProjects/TrabalhoSO2_2Etapa/src/main/java/ifsul/edu/br/ClienteUser.java'
+'C:/Users/igor_/Documents/NetBeansProjects/TrabalhoSO2_2Etapa/src/main/java/ifsul/edu/br/Conta.java'
+'C:/Users/igor_/Documents/NetBeansProjects/TrabalhoSO2_2Etapa/src/main/java/ifsul/edu/br/Server.java'
+C:\Users\igor_\Documents\NetBeansProjects\TrabalhoSO2_2Etapa\src\main\java = 1669945531933
+C:\Users\igor_\Documents\NetBeansProjects\TrabalhoSO2_2Etapa\target\site\apidocs\allclasses-index.html = 1669945620354
+C:\Users\igor_\Documents\NetBeansProjects\TrabalhoSO2_2Etapa\target\site\apidocs\allclasses.html = 1669945620385
+C:\Users\igor_\Documents\NetBeansProjects\TrabalhoSO2_2Etapa\target\site\apidocs\allpackages-index.html = 1669945620369
+C:\Users\igor_\Documents\NetBeansProjects\TrabalhoSO2_2Etapa\target\site\apidocs\constant-values.html = 1669945620213
+C:\Users\igor_\Documents\NetBeansProjects\TrabalhoSO2_2Etapa\target\site\apidocs\deprecated-list.html = 1669945620369
+C:\Users\igor_\Documents\NetBeansProjects\TrabalhoSO2_2Etapa\target\site\apidocs\element-list = 1669945620181
+C:\Users\igor_\Documents\NetBeansProjects\TrabalhoSO2_2Etapa\target\site\apidocs\help-doc.html = 1669945620385
+C:\Users\igor_\Documents\NetBeansProjects\TrabalhoSO2_2Etapa\target\site\apidocs\index-all.html = 1669945620338
+C:\Users\igor_\Documents\NetBeansProjects\TrabalhoSO2_2Etapa\target\site\apidocs\index.html = 1669945620385
+C:\Users\igor_\Documents\NetBeansProjects\TrabalhoSO2_2Etapa\target\site\apidocs\member-search-index.js = 1669945620338
+C:\Users\igor_\Documents\NetBeansProjects\TrabalhoSO2_2Etapa\target\site\apidocs\member-search-index.zip = 1669945620338
+C:\Users\igor_\Documents\NetBeansProjects\TrabalhoSO2_2Etapa\target\site\apidocs\overview-tree.html = 1669945620291
+C:\Users\igor_\Documents\NetBeansProjects\TrabalhoSO2_2Etapa\target\site\apidocs\package-search-index.js = 1669945620307
+C:\Users\igor_\Documents\NetBeansProjects\TrabalhoSO2_2Etapa\target\site\apidocs\package-search-index.zip = 1669945620322
+C:\Users\igor_\Documents\NetBeansProjects\TrabalhoSO2_2Etapa\target\site\apidocs\script.js = 1669945620404
+C:\Users\igor_\Documents\NetBeansProjects\TrabalhoSO2_2Etapa\target\site\apidocs\search.js = 1669945620417
+C:\Users\igor_\Documents\NetBeansProjects\TrabalhoSO2_2Etapa\target\site\apidocs\stylesheet.css = 1669945620401
+C:\Users\igor_\Documents\NetBeansProjects\TrabalhoSO2_2Etapa\target\site\apidocs\type-search-index.js = 1669945620322
+C:\Users\igor_\Documents\NetBeansProjects\TrabalhoSO2_2Etapa\target\site\apidocs\type-search-index.zip = 1669945620338
